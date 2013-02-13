@@ -38,7 +38,7 @@ function create_controls(div) {
     canvas = $(div +' canvas')[0];
     $(div).prepend('<div id="graph_editor_button_container"></div>');
     $('<div id="live_button" class="graph_editor_button">live</div>').appendTo(buttondiv).click(toggle_live);
-    $('<div id="tweaks_button" class="graph_editor_button">tweaks</div>').appendTo(buttondiv)
+    $('<div id="tweaks_button" class="graph_editor_button tweaks_button">tweaks</div>').appendTo(buttondiv)
     .toggle(function() {
         $(div).animate({'width': SIZE.x + 310 + 'px'},
             {queue: true, duration: 'fast', easing: 'linear', complete: function (){
