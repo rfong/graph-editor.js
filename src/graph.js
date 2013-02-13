@@ -114,7 +114,7 @@ Edge = function(node1, node2, multi, label) {
     this.node1 = node1;
     this.node2 = node2;
     this.multi = multi || 1;
-    this.label = label || '{}';
+    this.label = label || '0';
 };
 
 Edge.prototype = {

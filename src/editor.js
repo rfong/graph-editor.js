@@ -79,7 +79,7 @@ function init() {
 
 init();
 
-//an global object graph_editor is created containing all global functions
+//a global object graph_editor is created containing all global functions
 return {
     import_from_JSON: import_from_JSON,
     export_tkz: export_tkz,
