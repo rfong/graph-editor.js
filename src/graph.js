@@ -181,7 +181,8 @@ Edge.prototype = {
         } else {
             ctx.strokeStyle = ctx.fillStyle = "#000000";
         }
-        this.draw_label();
+        if (EDGE_LABELS)
+            this.draw_label();
         if (this.node1 === this.node2) {
             this.node1.draw_loop();
         } else {

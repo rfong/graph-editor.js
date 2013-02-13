@@ -1,4 +1,3 @@
-var UIside_panel_opened;
 function add_checkbox(name, variable, container_id, onclickf) {
     var s ='<tr><td>'+name+'</td>';
     s +='<td><input type="checkbox"'; //+' id="'+name+'_check"'
@@ -43,7 +42,7 @@ function create_controls(div) {
         $(div).animate({'width': SIZE.x + 310 + 'px'},
             {queue: true, duration: 'fast', easing: 'linear', complete: function (){
                 $(div + ' #graph_editor_tweaks').slideToggle('fast');
-                UIside_panel_opened = true;
+                MENU = true;
             }
         });
         $(div+' #tweaks_button').toggleClass('graph_editor_button_on');
@@ -52,10 +51,11 @@ function create_controls(div) {
         $(div + ' #graph_editor_tweaks').slideToggle('fast', function (){
             $(div).animate({'width': SIZE.x +'px'},
             {queue: true, duration: 'fast', easing: 'linear'});
-            UIside_panel_opened = undefined;
+            MENU = undefined;
         });
         $(div+' #tweaks_button').toggleClass('graph_editor_button_on');
-    });
+    })
+    .each(function() { if (MENU) $(this).click(); });
 
     $('<div id="help_button" class="graph_editor_button">?</div>').appendTo(buttondiv)
     .click(function() {
@@ -81,7 +81,21 @@ function create_controls(div) {
     });
 
     $(div).append('<div id="graph_editor_tweaks"></div>');
+    render_menu(div);
+
+    $(div).append("<div id='help_dialog'> <ul><li><h3>create vertex</h3>Click on empty space not too close to existing vertices. <li><h3>create/erase edge</h3>Select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them. <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.<li><h3>remove a vertex</h3>Press '-' when vertex is selected.<li><h3>keep the selected vertex after edge toggle</h3>Hold 'SHIFT' to preserve the selected vertex after creating/erasing an edge.<li><h3>split an edge</h3> press 's' when esge is selected<li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)<li><h3>add/remove loop</h3> press 'o'<li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.  <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.  </ul> </div>");
+    $('#help_dialog').dialog({
+        autoOpen : false,
+        width : 700,
+        title : "Graph Editor Help",
+        modal : true
+    });
+}
+
+function render_menu(div) {
+    if (!MENU) return;
     tweaks = div+' #graph_editor_tweaks';
+    $(tweaks).html('');
 
     $(tweaks).append("<div class='infobox'><h4 id='title'>Info</h4>\
     <div id='info'>Index: <span id='index'></span><br>\
@@ -108,7 +122,14 @@ function create_controls(div) {
     });
 
     $(tweaks).append('<table>');
-    add_checkbox('Vertex numbers', NODE_NUMBERS, tweaks, function() {
+
+
+    add_checkbox('Edge labels', EDGE_LABELS, tweaks, function() {
+                EDGE_LABELS = !EDGE_LABELS;
+                draw();
+                });
+
+    add_checkbox('Vertex labels', NODE_NUMBERS, tweaks, function() {
                 NODE_NUMBERS = !NODE_NUMBERS;
                 draw();
                 });
@@ -118,6 +139,9 @@ function create_controls(div) {
         draw();
         });
 
+    add_slider('Orientation', 0, tweaks, 0, 360, change_orientation);
+    $(tweaks).append('</table>').hide();
+
     add_slider('Edge Strength', 50, tweaks, 0, 100, function(newval) {
         SPRING = (1 - 1e-2) + 1e-4 * (100 - newval);
         SPEED = newval / 50.0;
@@ -126,21 +150,10 @@ function create_controls(div) {
     add_slider('Edge Length', FIXED_LENGTH, tweaks, 0, 200, function (newval){
         FIXED_LENGTH = newval;
     });
-
-    add_slider('Orientation', 0, tweaks, 0, 360, change_orientation);
-    $(tweaks).append('</table>').hide();
-
-    $(div).append("<div id='help_dialog'> <ul><li><h3>create vertex</h3>Click on empty space not too close to existing vertices. <li><h3>create/erase edge</h3>Select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them. <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.<li><h3>remove a vertex</h3>Press '-' when vertex is selected.<li><h3>keep the selected vertex after edge toggle</h3>Hold 'SHIFT' to preserve the selected vertex after creating/erasing an edge.<li><h3>split an edge</h3> press 's' when esge is selected<li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)<li><h3>add/remove loop</h3> press 'o'<li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.  <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.  </ul> </div>");
-    $('#help_dialog').dialog({
-        autoOpen : false,
-        width : 700,
-        title : "Graph Editor Help",
-        modal : true
-    });
 }
 
 function update_infobox(obj) {
-    if (!UIside_panel_opened) {
+    if (!MENU) {
         return;
     }
     var pos, index, node, edge;
