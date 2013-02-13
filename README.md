@@ -16,6 +16,7 @@ Contributors
 + Kevin Clark
 + Mitesh Patel
 + Fidel Barrera-Cruz
++ rfong
 
 Usage
 -----
