@@ -53,6 +53,10 @@ function line(x1,y1,x2,y2){
     ctx.stroke();
 }
 
+function text(str, x, y){
+  ctx.fillText(str, x, y);
+}
+
 function bezier(x1,y1,cx1,cy1,cx2,cy2,x2,y2){
     ctx.beginPath();
     ctx.moveTo(x1,y1);

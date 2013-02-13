@@ -114,7 +114,7 @@ Edge = function(node1, node2, multi, label) {
     this.node1 = node1;
     this.node2 = node2;
     this.multi = multi || 1;
-    this.label = label || '0';
+    this.label = label || '';
 };
 
 Edge.prototype = {
@@ -165,17 +165,23 @@ Edge.prototype = {
             }
         }
     },
+    draw_label: function(){
+        var pos1 = this.node1.get_pos(), pos2 = this.node2.get_pos(),
+        mid = scalarm(1/2,vectoradd(pos1, pos2));
+        text(this.label, mid.x, mid.y-1);
+    },
     display: function(){
         var dv;
         if (this.selected) {
-            ctx.strokeStyle = "#CC0000";
+            ctx.strokeStyle = ctx.fillStyle = "#CC0000";
         } else if (this.closest) {
-            ctx.strokeStyle = "#CCC000";
+            ctx.strokeStyle = ctx.fillStyle = "#CCC000";
         } else if (this.node1.selected || this.node2.selected) {
-            ctx.strokeStyle = "#0000C0";
+            ctx.strokeStyle = ctx.fillStyle = "#0000C0";
         } else {
-            ctx.strokeStyle = "#000000";
+            ctx.strokeStyle = ctx.fillStyle = "#000000";
         }
+        this.draw_label();
         if (this.node1 === this.node2) {
             this.node1.draw_loop();
         } else {
