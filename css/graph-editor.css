@@ -54,6 +54,7 @@ div#graph_editor_menu{
     padding: 0px 15px;
     float: left;
     margin-left: 20px;
+    width: 270px;
 }
 div h4{
     padding: 0px;
