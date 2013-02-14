@@ -23,6 +23,12 @@ New features in this fork
 + support for edge labels
 + import/export integrated into menu
 
+Todo
+-----
++ add option to constrain edge weights to integers/numbers
++ pan/zoom
++ select and operate on multiple nodes
+
 Usage
 -----
 See index.html for description and demos.
