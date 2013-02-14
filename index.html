@@ -14,7 +14,7 @@
     <style>
       body {
         width: 800px;
-        margin: auto;
+        //margin: auto;
         font-family: Helvetica;
         background: #fcfcfc;
       }
@@ -31,42 +31,9 @@ var cube = '{"edges": [["000", "001", null], ["000", "010", null], ["000", "100"
 $(function() {
     hljs.initHighlightingOnLoad();
     my_graph_editor1 = new GraphEditor('#graph_ed1', {
-        JSONdata : K4_graph
-    });
-    my_graph_editor2 = new GraphEditor('#graph_ed2', {
         JSONdata : K4_graph,
-        width : 100,
-        height : 100,
-        node_radius : 5,
-        controls : false
-    });
-    /* See comment below. 
-    my_graph_editor3 = new GraphEditor('#graph_ed3', {
-        JSONdata: K4_graph,
-        width : 300,
-        height : 300,
-        directed : true
-    });*/
-    my_graph_editor4 = new GraphEditor('#graph_ed4', {
-        JSONdata: K4_graph,
-        width : 300,
-        height : 300,
-        multigraph : true,
-    });
-
-    my_graph_editor = new GraphEditor('#graph_ed', { JSONdata: cube,
-      width : 500,
-      height : 500,
-      multigraph: true});
-
-    $('#set_json').click(function() {
-        my_graph_editor.import_from_JSON($('#json').val());
-    });
-    $('#get_sage').click(function() {
-        $('#sage').val(my_graph_editor.export_sage);
-    });
-    $('#get_latex').click(function() {
-        $('#latex').val(my_graph_editor.export_tkz);
+        width: 800,
+        height: 600
     });
 });
     </script>
