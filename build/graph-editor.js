@@ -696,6 +696,17 @@ Controller = function() {
             if (e.keyCode === 16) {
                 SHIFT = true;
             }
+            if (e.keyCode === 8) {
+                if (selected_object) {
+                    if (selected_object instanceof Vertex) {
+                        remove_node(selected_object);
+                    } else if (selected_object instanceof Edge) {
+                        selected_object.dec_mult();
+                    }
+                    this.unselect_object();
+                }
+                e.preventDefault(); // prevent navigation
+            }
         },
         keyup: function(e) {
             SHIFT = false;
@@ -918,11 +929,6 @@ function create_controls(div) {
     })
     .each(function() { if (MENU) $(this).click(); });
 
-    $('<div id="help_button" class="graph_editor_button">?</div>').appendTo(buttondiv)
-    .click(function() {
-        $('#help_dialog').dialog('open');
-    });
-
     $('<div id="undo_button" class="graph_editor_button">undo</div>').appendTo(buttondiv)
     .click(undo_remove).toggleClass('graph_editor_undo_disabled');
 
@@ -933,10 +939,28 @@ function create_controls(div) {
         }
     });
 
+    $('<div id="help_button" class="graph_editor_button">?</div>').appendTo(buttondiv)
+    .click(function() {
+        $('#help_dialog').dialog('open');
+    });
+
     $(div).append('<div id="graph_editor_menu"></div>');
     render_menu(div);
 
-    $(div).append("<div id='help_dialog'> <ul><li><h3>create vertex</h3>Click on empty space not too close to existing vertices. <li><h3>create/erase edge</h3>Select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them. <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.<li><h3>remove a vertex</h3>Press '-' when vertex is selected.<li><h3>keep the selected vertex after edge toggle</h3>Hold 'SHIFT' to preserve the selected vertex after creating/erasing an edge.<li><h3>split an edge</h3> press 's' when esge is selected<li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)<li><h3>add/remove loop</h3> press 'o'<li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.  <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.  </ul> </div>");
+    $(div).append("<div id='help_dialog'>\
+        <ul>\
+            <li><h3>create vertex</h3>Click on empty space not too close to existing vertices.\
+            <li><h3>create/erase edge</h3>Select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them.\
+            <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.\
+            <li><h3>remove a vertex or edge</h3>Press delete when the object is selected.\
+            <li><h3>keep the selected vertex after edge toggle</h3>Hold 'SHIFT' to preserve the selected vertex after creating/erasing an edge.\
+            <li><h3>split an edge</h3> press 's' when edge is selected\
+            <li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)\
+            <li><h3>add/remove loop</h3> press 'o'\
+            <li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.\
+            <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.\
+        </ul>\
+        </div>");
     $('#help_dialog').dialog({
         autoOpen : false,
         width : 700,

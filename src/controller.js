@@ -118,6 +118,17 @@ Controller = function() {
             if (e.keyCode === 16) {
                 SHIFT = true;
             }
+            if (e.keyCode === 8) {
+                if (selected_object) {
+                    if (selected_object instanceof Vertex) {
+                        remove_node(selected_object);
+                    } else if (selected_object instanceof Edge) {
+                        selected_object.dec_mult();
+                    }
+                    this.unselect_object();
+                }
+                e.preventDefault(); // prevent navigation
+            }
         },
         keyup: function(e) {
             SHIFT = false;

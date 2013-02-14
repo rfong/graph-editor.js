@@ -18,17 +18,13 @@ Contributors
 + Fidel Barrera-Cruz
 + rfong
 
+New features in this fork
+-----
++ support for edge labels
++ import/export integrated into menu
+
 Usage
 -----
 See index.html for description and demos.
-
-Ideas for Future Development
-----------------------------
-
-+ Edge and vertex colors.
-+ More editing options, like turning vertex into a clique, selecting multiple
-  vertices and adding edges between sets of vertices.
-+ Crazy embeddings, like a graph on a torus or projective plane.
-+ graph6 input/output
 
 Have fun!
