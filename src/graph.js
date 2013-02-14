@@ -114,7 +114,7 @@ Edge = function(node1, node2, multi, label) {
     this.node1 = node1;
     this.node2 = node2;
     this.multi = multi || 1;
-    this.label = label || '';
+    this.label = label;
 };
 
 Edge.prototype = {
@@ -181,6 +181,8 @@ Edge.prototype = {
         } else {
             ctx.strokeStyle = ctx.fillStyle = "#000000";
         }
+        if (NUMERIC_EDGES && !isNumber(this.label))
+            this.label = null;
         if (EDGE_LABELS)
             this.draw_label();
         if (this.node1 === this.node2) {

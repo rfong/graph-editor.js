@@ -25,7 +25,6 @@ New features in this fork
 
 Todo
 -----
-+ add option to constrain edge weights to integers/numbers
 + pan/zoom
 + select and operate on multiple nodes
 

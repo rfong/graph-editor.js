@@ -16,6 +16,7 @@ var edge_list = [], nodes = [], removed_edges = [],
     NODE_RADIUS = options.node_radius || 10.0,
     LIVE = false,
     AUTO_MAXIMIZE = true,
+    NUMERIC_EDGES = false,
     EDGE_LABELS = true,
     NODE_NUMBERS = true,
     SPRING = 0.999,
@@ -48,6 +49,10 @@ function first(array,f){
             return array[i];
         }
     }
+}
+
+function isNumber(str) {
+    return /^[0-9\.]*$/.test(str);
 }
 
 function nonundef(x){
@@ -86,7 +91,7 @@ function line(x1,y1,x2,y2){
 }
 
 function text(str, x, y){
-  ctx.fillText(str, x, y);
+  ctx.fillText(str||'', x, y);
 }
 
 function bezier(x1,y1,cx1,cy1,cx2,cy2,x2,y2){
@@ -268,7 +273,7 @@ Edge = function(node1, node2, multi, label) {
     this.node1 = node1;
     this.node2 = node2;
     this.multi = multi || 1;
-    this.label = label || '';
+    this.label = label;
 };
 
 Edge.prototype = {
@@ -335,6 +340,8 @@ Edge.prototype = {
         } else {
             ctx.strokeStyle = ctx.fillStyle = "#000000";
         }
+        if (NUMERIC_EDGES && !isNumber(this.label))
+            this.label = null;
         if (EDGE_LABELS)
             this.draw_label();
         if (this.node1 === this.node2) {
@@ -911,7 +918,7 @@ function create_controls(div) {
     $('<div id="live_button" class="graph_editor_button">live</div>').appendTo(buttondiv).click(toggle_live);
     $('<div id="menu_button" class="graph_editor_button menu_button">menu</div>').appendTo(buttondiv)
     .toggle(function() {
-        $(div).animate({'width': SIZE.x + 310 + 'px'},
+        $(div).animate({'width': SIZE.x + 330 + 'px'},
             {queue: true, duration: 'fast', easing: 'linear', complete: function (){
                 $(div + ' #graph_editor_menu').slideToggle('fast');
                 MENU = true;
@@ -982,13 +989,20 @@ function render_menu(div) {
     Label: <input type='text' id='label'></div>\
     <div id='none_selected'>No node is selected</div></div>");
     $(div + ' .infobox #info').hide();
-    $(div + ' .infobox #label').keyup(function() {
+    $(div + ' .infobox #label').keyup(function(e) {
         var index = $(div + ' .infobox #index').html(),
-        title = $(div + ' .infobox #title').html();
+        title = $(div + ' .infobox #title').html(),
+        val = $(div + ' .infobox #label').val();
         if (title === "Vertex Info"){
-            nodes[index].label = $(div + ' .infobox #label').val();
+            nodes[index].label = val;
         } else if (title === "Edge Info"){
-            edge_list[index].label = $(div + ' .infobox #label').val();
+            if (isNumber(val)) {
+                edge_list[index].label = val;
+            }
+            else {
+                alert("Not a number!");
+                //$(div + ' .infobox #label').val(val.slice(0,val.length));
+            }
         }
     });
 
@@ -1010,6 +1024,13 @@ function render_menu(div) {
     add_checkbox('Vertex labels', NODE_NUMBERS, menu, function() {
                 NODE_NUMBERS = !NODE_NUMBERS;
                 draw();
+                });
+
+    add_checkbox('Numeric edges', NUMERIC_EDGES, menu, function() {
+                if (confirm("Any non-numeric edge labels will be deleted. This operation cannot be undone.")) {
+                    NUMERIC_EDGES = !NUMERIC_EDGES;
+                    draw();
+                }
                 });
 
     add_slider('Vertex Size', NODE_RADIUS, menu, 0, 30, function(newval) {
@@ -1080,7 +1101,7 @@ function update_infobox(obj) {
         //$(div + ' .infobox #v2').html(nodes.indexOf(enodes.node2));
         $(div + ' .infobox #v1').html(enodes.node1.label);
         $(div + ' .infobox #v2').html(enodes.node2.label);
-        $(div + ' .infobox #label').val(edge.label||"none");
+        $(div + ' .infobox #label').val(edge.label||'');
         $(div + ' .infobox #none_selected').hide();
         $(div + ' .infobox #info').show();
     } else {
