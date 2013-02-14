@@ -996,12 +996,11 @@ function render_menu(div) {
         if (title === "Vertex Info"){
             nodes[index].label = val;
         } else if (title === "Edge Info"){
-            if (isNumber(val)) {
+            if (!NUMERIC_EDGES || isNumber(val)) {
                 edge_list[index].label = val;
             }
             else {
                 alert("Not a number!");
-                //$(div + ' .infobox #label').val(val.slice(0,val.length));
             }
         }
     });
@@ -1017,21 +1016,21 @@ function render_menu(div) {
     $(menu).append('<table>');
 
     add_checkbox('Edge labels', EDGE_LABELS, menu, function() {
-                EDGE_LABELS = !EDGE_LABELS;
-                draw();
-                });
+        EDGE_LABELS = !EDGE_LABELS;
+        draw();
+        });
 
     add_checkbox('Vertex labels', NODE_NUMBERS, menu, function() {
-                NODE_NUMBERS = !NODE_NUMBERS;
-                draw();
-                });
+        NODE_NUMBERS = !NODE_NUMBERS;
+        draw();
+        });
 
     add_checkbox('Numeric edges', NUMERIC_EDGES, menu, function() {
-                if (confirm("Any non-numeric edge labels will be deleted. This operation cannot be undone.")) {
-                    NUMERIC_EDGES = !NUMERIC_EDGES;
-                    draw();
-                }
-                });
+        if (NUMERIC_EDGES || confirm("Any non-numeric edge labels will be deleted. This operation cannot be undone.")) {
+            NUMERIC_EDGES = !NUMERIC_EDGES;
+            draw();
+        }
+        });
 
     add_slider('Vertex Size', NODE_RADIUS, menu, 0, 30, function(newval) {
         NODE_RADIUS = newval;
