@@ -6,7 +6,13 @@
 //"name" : "a_graph"
 //}
 function import_from_JSON(JSONdata) {
-    var i, data = JSON.parse(JSONdata), dict = {}, new_v, pos, vertex;
+    var i, data, dict = {}, new_v, pos, vertex;
+    try {
+        data = JSON.parse(JSONdata);
+    } catch(e) {
+        alert("Unable to parse.");
+        return;
+    }
     erase_graph();
     for (i = 0; i < data.vertices.length; i += 1) {
         new_v = new Vertex({x:0,y:0}, data.vertices[i]);
@@ -74,7 +80,7 @@ function adjacency_lists_dict() {
 function export_tkz() {
     var pos, edge, i, j, out, px2pt;
     px2pt = 0.75;
-    out = "";
+    out = "% uses the tkz-brege package\n";
     out += "\\begin{tikzpicture}\n\n";
     for (i = 0; i<nodes.length; i++) {
         out += "\\Vertex";

@@ -33,27 +33,27 @@ function add_slider(name, variable, container_id, min, max, onchangef) {
 
 function create_controls(div) {
     //Create controls and attach click functions
-    var tweaks, canvaspos = $(div +' canvas').offset(), buttondiv = div + ' #graph_editor_button_container',
+    var menu, canvaspos = $(div +' canvas').offset(), buttondiv = div + ' #graph_editor_button_container',
     canvas = $(div +' canvas')[0];
     $(div).prepend('<div id="graph_editor_button_container"></div>');
     $('<div id="live_button" class="graph_editor_button">live</div>').appendTo(buttondiv).click(toggle_live);
-    $('<div id="tweaks_button" class="graph_editor_button tweaks_button">tweaks</div>').appendTo(buttondiv)
+    $('<div id="menu_button" class="graph_editor_button menu_button">menu</div>').appendTo(buttondiv)
     .toggle(function() {
         $(div).animate({'width': SIZE.x + 310 + 'px'},
             {queue: true, duration: 'fast', easing: 'linear', complete: function (){
-                $(div + ' #graph_editor_tweaks').slideToggle('fast');
+                $(div + ' #graph_editor_menu').slideToggle('fast');
                 MENU = true;
             }
         });
-        $(div+' #tweaks_button').toggleClass('graph_editor_button_on');
+        $(div+' #menu_button').toggleClass('graph_editor_button_on');
     },
     function() {
-        $(div + ' #graph_editor_tweaks').slideToggle('fast', function (){
+        $(div + ' #graph_editor_menu').slideToggle('fast', function (){
             $(div).animate({'width': SIZE.x +'px'},
             {queue: true, duration: 'fast', easing: 'linear'});
             MENU = undefined;
         });
-        $(div+' #tweaks_button').toggleClass('graph_editor_button_on');
+        $(div+' #menu_button').toggleClass('graph_editor_button_on');
     })
     .each(function() { if (MENU) $(this).click(); });
 
@@ -72,15 +72,7 @@ function create_controls(div) {
         }
     });
 
-    $('<div id="image_button" class="graph_editor_button">image</div>').appendTo(buttondiv)
-    .click(function() {
-        var img = canvas.toDataURL("image/png");
-        window.open(img, "Graph Editor Image"
-        ,"menubar=false,toolba=false,location=false,width="
-        + SIZE.x + ",height=" + SIZE.y);
-    });
-
-    $(div).append('<div id="graph_editor_tweaks"></div>');
+    $(div).append('<div id="graph_editor_menu"></div>');
     render_menu(div);
 
     $(div).append("<div id='help_dialog'> <ul><li><h3>create vertex</h3>Click on empty space not too close to existing vertices. <li><h3>create/erase edge</h3>Select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them. <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.<li><h3>remove a vertex</h3>Press '-' when vertex is selected.<li><h3>keep the selected vertex after edge toggle</h3>Hold 'SHIFT' to preserve the selected vertex after creating/erasing an edge.<li><h3>split an edge</h3> press 's' when esge is selected<li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)<li><h3>add/remove loop</h3> press 'o'<li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.  <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.  </ul> </div>");
@@ -94,10 +86,11 @@ function create_controls(div) {
 
 function render_menu(div) {
     if (!MENU) return;
-    tweaks = div+' #graph_editor_tweaks';
-    $(tweaks).html('');
+    menu = div+' #graph_editor_menu';
+    $(menu).html('');
 
-    $(tweaks).append("<div class='infobox'><h4 id='title'>Info</h4>\
+    // info
+    $(menu).append("<div class='infobox'><h4 id='title'>Info</h4>\
     <div id='info'>Index: <span id='index'></span><br>\
     <span id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)<br></span>\
     <span id='vert'>Vertices: <span id='v1'></span>-><span id='v2'></span><br></span>\
@@ -114,41 +107,63 @@ function render_menu(div) {
         }
     });
 
-    $(tweaks).append("<h4>Tweaks</h4>");
-    add_button('Circular layout', tweaks, function() {
+    // menu
+    $(menu).append("<h4>Tweaks</h4>");
+    add_button('Circular layout', menu, function() {
         if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {
             circular_layout();
         }
     });
 
-    $(tweaks).append('<table>');
+    $(menu).append('<table>');
 
-
-    add_checkbox('Edge labels', EDGE_LABELS, tweaks, function() {
+    add_checkbox('Edge labels', EDGE_LABELS, menu, function() {
                 EDGE_LABELS = !EDGE_LABELS;
                 draw();
                 });
 
-    add_checkbox('Vertex labels', NODE_NUMBERS, tweaks, function() {
+    add_checkbox('Vertex labels', NODE_NUMBERS, menu, function() {
                 NODE_NUMBERS = !NODE_NUMBERS;
                 draw();
                 });
 
-    add_slider('Vertex Size', NODE_RADIUS, tweaks, 0, 30, function(newval) {
+    add_slider('Vertex Size', NODE_RADIUS, menu, 0, 30, function(newval) {
         NODE_RADIUS = newval;
         draw();
         });
 
-    add_slider('Orientation', 0, tweaks, 0, 360, change_orientation);
-    $(tweaks).append('</table>').hide();
+    add_slider('Orientation', 0, menu, 0, 360, change_orientation);
+    $(menu).append('</table>').hide();
 
-    add_slider('Edge Strength', 50, tweaks, 0, 100, function(newval) {
+    add_slider('Edge Strength', 50, menu, 0, 100, function(newval) {
         SPRING = (1 - 1e-2) + 1e-4 * (100 - newval);
         SPEED = newval / 50.0;
         SPEED *= 2 * SPEED;
     });
-    add_slider('Edge Length', FIXED_LENGTH, tweaks, 0, 200, function (newval){
+    add_slider('Edge Length', FIXED_LENGTH, menu, 0, 200, function (newval){
         FIXED_LENGTH = newval;
+    });
+
+    // import / export
+    $(menu).append("<h4>Import / Export</h4>");
+    $(menu).append('<div id="io_buttons">');
+    add_button('Import JSON', menu+' #io_buttons', function() {
+        import_from_JSON($(div+' #json').html());
+    });
+    add_button('Export JSON', menu+' #io_buttons', function() {
+        $(div+' #json').html(export_sage());
+    });
+    add_button('Export Latex', menu+' #io_buttons', function() {
+        $(div+' #json').html(export_tkz());
+    });
+    $(menu).append('<textarea id="json" rows="5" cols="34"></textarea><br>');
+
+    add_button('Export image', menu, function() {
+        var canvas = $(div +' canvas')[0];
+        var img = canvas.toDataURL("image/png");
+        window.open(img, "Graph Editor Image"
+        ,"menubar=false,toolbar=false,location=false,width="
+        + SIZE.x + ",height=" + SIZE.y);
     });
 }
 
