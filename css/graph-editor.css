@@ -49,11 +49,18 @@ canvas.graph_editor_canvas{
     tabindex: 0;
 }
 
-div#graph_editor_tweaks{
+div#graph_editor_menu{
     overflow: auto;
     padding: 0px 15px;
+    float: left;
+    margin-left: 20px;
 }
 div h4{
     padding: 0px;
     margin: 12px 0px 0px 0px;
+}
+
+#help_dialog {
+    height: 500px !important;
+    overflow: auto;
 }
