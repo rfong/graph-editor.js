@@ -23,6 +23,12 @@
         height: 500px !important;
         overflow: auto;
       }
+
+      #graph_editor_menu {
+        float: left;
+        margin-left: 20px;
+        overflow: auto;
+      }
     </style>
     <script>
 var K4_graph = JSON.stringify(
@@ -79,91 +85,10 @@ $(function() {
 </head>
 <body>
   <h1>JavaScript Graph Editor</h1>
-    We define the following JSON string as global JS variable. The initial positions are optional.
-    <pre>
-      <code class='language-javascript'>
-var K4_graph = JSON.stringify(
-               {"vertices": ["0", "1", "2", "3"],
-                "edges": [["0", "1", "100"], ["0", "2", "100"], ["0", "3", "100"], ["1", "2", "100"],
-                ["1", "3", "100"], ["2", "3", "100"]],
-                "name": "G",
-                "pos": {"0": [0.0, 1.0], "1": [-1.0, 0.0], "2": [0.0, -1.0], "3": [1.0, 0.0]}});
-      </code>
-    </pre>
-    <h2>Simple Multigraph</h2>
-    To instantiate the graph editor add this to your HTML
-    <pre>
-      <code class='html'>
-        &lt;div id="graph_ed1"&gt;&lt;/div&gt;
-      </code>
-    </pre>
-    and on load call the GraphEditor library
-    <pre>
-      <code class='language-javascript'>
-    my_graph_editor1 = new GraphEditor('#graph_ed1', {
-        JSONdata : K4_graph
-    });
-      </code>
-    </pre>
+
 <div id='graph_ed1'></div>
-<h2>Small Graph, No Controls</h2>
-    <pre>
-      <code class='language-javascript'>
-    my_graph_editor2 = new GraphEditor('#graph_ed2', {
-        JSONdata : K4_graph,
-        width : 100,
-        height : 100,
-        node_radius : 5,
-        controls : false
-    });
-      </code>
-    </pre>
-<div id='graph_ed2'></div>
-<!--
-TODO: fix directed graph implementation to allow for a->b and b->a. Find a good
-way to represent that.
-<h2>Directed Graph</h2>
-    <pre>
-      <code class='language-javascript'>
-    my_graph_editor3 = new GraphEditor('#graph_ed3', {
-        JSONdata: K4_graph,
-        width : 300,
-        height : 300,
-        directed : true
-    });
-      </code>
-    </pre>
-<div id='graph_ed3'></div>-->
-<h2>Multigraph</h2>
-Use '+' when an edge is selected.
-    <pre>
-      <code class='language-javascript'>
-    my_graph_editor4 = new GraphEditor('#graph_ed4', {
-        JSONdata: K4_graph,
-        width : 300,
-        height : 300,
-        multigraph : true
-    });
-      </code>
-    </pre>
-<div id='graph_ed4'></div>
-<h2>Integration with <a href="http://sagemath.org">Sage</a></h2>
-<div id='graph_ed'></div>
-<p id='rest'>
-Use the following <a href="json_data.sage">Sage file</a> in Sage to get JSON string represenation of a graph. Paste it in the box below.<br>
-<input type="button" id="set_json" value="Parse JSON Data"><br>
-<textarea id="json" rows="5" cols="100">
-</textarea><br>
-Using the same <a href="json_data.sage">Sage file</a>, paste this JSON graph data in Sage to obtain a graph.<br>
-<input type="button" id="get_sage" value="Get JSON Data"><br>
-<br>
-<textarea id="sage" rows="5" cols="100">
-</textarea><br>
-Copy/Paste this code to produce this graph in Latex using the tkz-brege package.<br>
-<input type="button" id="get_latex" value="Get Latex Code"><br>
-<textarea id="latex" rows="5" cols="100">
-</textarea></p>
-<a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+<a href="https://github.com/rfong/graph-editor.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 </body>
 
 </html>
