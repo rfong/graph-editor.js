@@ -19,6 +19,7 @@ var edge_list = [], nodes = [], removed_edges = [],
     NUMERIC_EDGES = false,
     EDGE_LABELS = true,
     NODE_NUMBERS = true,
+    MODIFIABLE_NODES = true,
     SPRING = 0.999,
     SPEED = 2.0,
     FIXED_LENGTH = 100.0,
@@ -402,6 +403,7 @@ function remove_edge(edge){
 }
 
 function remove_node(node){
+    if (!MODIFIABLE_NODES) return;
     var edge, i, index;
     removed_edges = [];
     for (i = edge_list.length - 1; i > -1; i -= 1) {
@@ -676,7 +678,7 @@ Controller = function() {
                 }
             } else if (closest) {
                 this.select_object(closest);
-            } else {
+            } else if (MODIFIABLE_NODES) {
                 new_v = new Vertex(mouse);
                 //careful for edge case of user not moving mouse afterclick
                 //if live the vertex flies off
@@ -878,13 +880,15 @@ function export_sage() {
     return JSON.stringify(data);
 }
 function add_checkbox(name, variable, container_id, onclickf) {
-    var s ='<tr><td>'+name+'</td>';
+    var s ='<tr>';
     s +='<td><input type="checkbox"'; //+' id="'+name+'_check"'
     s +=' value="'+variable+'"';
     if (variable){
         s+='checked';
     }
-    s += '/></td></tr>';
+    s += '/></td>';
+    s += '<td>'+name+'</td>';
+    s += '</tr>';
     $(container_id).append(s);
     $(container_id+' input:last').click(onclickf);
 }
@@ -1031,6 +1035,13 @@ function render_menu(div) {
             draw();
         }
         });
+
+    add_checkbox('Modifiable vertices', MODIFIABLE_NODES, menu, function() {
+        MODIFIABLE_NODES = !MODIFIABLE_NODES;
+        draw();
+        });
+
+    $(menu).append('</table><table>');
 
     add_slider('Vertex Size', NODE_RADIUS, menu, 0, 30, function(newval) {
         NODE_RADIUS = newval;

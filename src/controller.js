@@ -91,7 +91,7 @@ Controller = function() {
                 }
             } else if (closest) {
                 this.select_object(closest);
-            } else {
+            } else if (MODIFIABLE_NODES) {
                 new_v = new Vertex(mouse);
                 //careful for edge case of user not moving mouse afterclick
                 //if live the vertex flies off

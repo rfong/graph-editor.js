@@ -243,6 +243,7 @@ function remove_edge(edge){
 }
 
 function remove_node(node){
+    if (!MODIFIABLE_NODES) return;
     var edge, i, index;
     removed_edges = [];
     for (i = edge_list.length - 1; i > -1; i -= 1) {

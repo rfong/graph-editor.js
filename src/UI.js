@@ -1,11 +1,13 @@
 function add_checkbox(name, variable, container_id, onclickf) {
-    var s ='<tr><td>'+name+'</td>';
+    var s ='<tr>';
     s +='<td><input type="checkbox"'; //+' id="'+name+'_check"'
     s +=' value="'+variable+'"';
     if (variable){
         s+='checked';
     }
-    s += '/></td></tr>';
+    s += '/></td>';
+    s += '<td>'+name+'</td>';
+    s += '</tr>';
     $(container_id).append(s);
     $(container_id+' input:last').click(onclickf);
 }
@@ -152,6 +154,13 @@ function render_menu(div) {
             draw();
         }
         });
+
+    add_checkbox('Modifiable vertices', MODIFIABLE_NODES, menu, function() {
+        MODIFIABLE_NODES = !MODIFIABLE_NODES;
+        draw();
+        });
+
+    $(menu).append('</table><table>');
 
     add_slider('Vertex Size', NODE_RADIUS, menu, 0, 30, function(newval) {
         NODE_RADIUS = newval;
