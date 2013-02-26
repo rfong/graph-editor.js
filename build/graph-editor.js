@@ -1033,6 +1033,10 @@ function render_menu(div) {
     <div id='none_selected'>No node is selected</div></div>");
     $(div + ' .infobox #info').hide();
     $(div + ' .infobox #label').keyup(function(e) {
+        if (!MODIFIABLE_NODES) { // in case of sneaks
+            e.preventDefault();
+            return;
+        }
         var index = $(div + ' .infobox #index').html(),
         title = $(div + ' .infobox #title').html(),
         val = $(div + ' .infobox #label').val();
@@ -1080,7 +1084,10 @@ function render_menu(div) {
     add_checkbox('Modifiable vertices', MODIFIABLE_NODES, menu, function() {
         MODIFIABLE_NODES = !MODIFIABLE_NODES;
         draw();
-        $('.infobox #label-container').toggleClass('hidden');
+        if (MODIFIABLE_NODES)
+            $('.infobox input#label').removeAttr("readonly");
+        else
+            $('.infobox input#label').attr("readonly", "readonly");
         });
 
     $(menu).append('</table><table>');
