@@ -1106,21 +1106,21 @@ function render_menu(div) {
     $(menu).append("<h4>Import / Export</h4>");
     $(menu).append('<div id="io_buttons">');
     add_button('Import JSON', menu+' #io_buttons', function() {
-        import_from_JSON($(div+' #json').html());
+        import_from_JSON($(div+' #json').val());
     });
     add_button('Export JSON', menu+' #io_buttons', function() {
-        $(div+' #json').html(export_sage());
+        $(div+' #json').val(export_sage());
     });
     $(menu+' #io_buttons').append('<br>');
     add_button('Import CSV', menu+' #io_buttons', function() {
-        import_from_CSV($(div+' #json').html());
+        import_from_CSV($(div+' #json').val());
     });
     add_button('Export CSV', menu+' #io_buttons', function() {
-        $(div+' #json').html(export_CSV());
+        $(div+' #json').val(export_CSV());
     });
     $(menu+' #io_buttons').append('<br>');
     add_button('Export Latex', menu+' #io_buttons', function() {
-        $(div+' #json').html(export_tkz());
+        $(div+' #json').val(export_tkz());
     });
     $(menu).append('<textarea id="json" rows="5" cols="34"></textarea><br>');
 
