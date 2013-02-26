@@ -148,11 +148,13 @@ function render_menu(div) {
         draw();
         });
 
-    add_checkbox('Numeric edges', NUMERIC_EDGES, menu, function() {
+    add_checkbox('Numeric edges', NUMERIC_EDGES, menu, function(e) {
         if (NUMERIC_EDGES || confirm("Any non-numeric edge labels will be deleted. This operation cannot be undone.")) {
             NUMERIC_EDGES = !NUMERIC_EDGES;
             draw();
         }
+        else
+            e.preventDefault();
         });
 
     add_checkbox('Modifiable vertices', MODIFIABLE_NODES, menu, function() {
