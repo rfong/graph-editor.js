@@ -191,6 +191,14 @@ function render_menu(div) {
     add_button('Export JSON', menu+' #io_buttons', function() {
         $(div+' #json').html(export_sage());
     });
+    $(menu+' #io_buttons').append('<br>');
+    add_button('Import CSV', menu+' #io_buttons', function() {
+        import_from_CSV($(div+' #json').html());
+    });
+    add_button('Export CSV', menu+' #io_buttons', function() {
+        $(div+' #json').html(export_CSV());
+    });
+    $(menu+' #io_buttons').append('<br>');
     add_button('Export Latex', menu+' #io_buttons', function() {
         $(div+' #json').html(export_tkz());
     });

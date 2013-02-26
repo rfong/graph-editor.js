@@ -1,18 +1,57 @@
-//JSONdata has the format
+//CSVdata has the format:
+//v0,v1,...,vn
+//va,vb,e0
+//vc,vd,e1
+//...
+// where the first line is names of vertices
+// and all following lines describe edges
+function import_from_CSV(CSVdata) {
+    var data, vertices, edges;
+    data = CSVdata.split('\n').map(function(line) {
+        return line.split(',')
+    });
+    import_from_object({
+        vertices: data[0],
+        edges: data.slice(1)
+    });
+}
+
+function export_CSV() {
+    var data = [];
+    //vertices
+    data.push( nodes.map(function(n) {
+        return n.label;
+    }) );
+    //edges (with nonempty attributes)
+    data = data.concat(
+        edge_list.filter(function(e){ return e.label; })
+        .map(function(e) {
+            return [e.node1.label, e.node2.label, e.label];
+        })
+    );
+    return data.map(function(d) { return d.join(','); }).join('\n');
+}
+
 //This format is compatible with sage
+//JSONdata has the format:
 //{"vertices" : [v0.label, v1.label, .... , vn.label],
 //"edges" : [ [e0v0.label, e0v1label, edgelabel], ... ],
 //"pos"" : [ [v0x, v0y], [v1x, v1y], ... ],
 //"name" : "a_graph"
 //}
 function import_from_JSON(JSONdata) {
-    var i, data, dict = {}, new_v, pos, vertex;
+    var data;
     try {
         data = JSON.parse(JSONdata);
     } catch(e) {
         alert("Unable to parse.");
         return;
     }
+    import_from_object(data);
+}
+
+function import_from_object(data) {
+    var i, dict = {}, new_v, pos, vertex;
     erase_graph();
     for (i = 0; i < data.vertices.length; i += 1) {
         new_v = new Vertex({x:0,y:0}, data.vertices[i]);
