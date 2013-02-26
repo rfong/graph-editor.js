@@ -78,3 +78,7 @@ table {
     border-collapse: separate;
     margin: 0.5em 0;
 }
+
+.hidden {
+    display: none;
+}

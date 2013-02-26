@@ -109,7 +109,7 @@ function render_menu(div) {
     <div id='info'>Index: <span id='index'></span><br>\
     <span id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)<br></span>\
     <span id='vert'>Vertices: <span id='v1'></span>-><span id='v2'></span><br></span>\
-    Label: <input type='text' id='label'></div>\
+    <span id='label-container'>Label: <input type='text' id='label'></span></div>\
     <div id='none_selected'>No node is selected</div></div>");
     $(div + ' .infobox #info').hide();
     $(div + ' .infobox #label').keyup(function(e) {
@@ -158,6 +158,7 @@ function render_menu(div) {
     add_checkbox('Modifiable vertices', MODIFIABLE_NODES, menu, function() {
         MODIFIABLE_NODES = !MODIFIABLE_NODES;
         draw();
+        $('.infobox #label-container').toggleClass('hidden');
         });
 
     $(menu).append('</table><table>');
