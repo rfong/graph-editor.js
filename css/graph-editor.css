@@ -40,7 +40,7 @@ div.graph_editor_undo_disabled{
 }
 
 div.slider{
-    width: 150px;
+    width: 140px;
 }
 
 canvas.graph_editor_canvas{
@@ -64,4 +64,21 @@ div h4{
 #help_dialog {
     height: 500px !important;
     overflow: auto;
+}
+
+input[type="checkbox"] {
+    margin-right: 0.5em;
+}
+div.slider {
+    margin-left: 0.5em;
+}
+
+table {
+    border-spacing: 5px 5px;
+    border-collapse: separate;
+    margin: 0.5em 0;
+}
+
+.hidden {
+    display: none;
 }
