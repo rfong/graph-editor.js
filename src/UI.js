@@ -173,9 +173,14 @@ function render_menu(div) {
         if ($('.infobox #title').html() == 'Vertex Info')
             update_infobox_label(div);
         });
+*/
+    add_checkbox('Info on mouseover', MOUSEOVER_INFO, menu, function() {
+        MOUSEOVER_INFO = !MOUSEOVER_INFO;
+        draw();
+        });
 
     $(menu).append('</table><table>');
-*/
+
     add_slider('Vertex Size', NODE_RADIUS, menu, 0, 30, function(newval) {
         NODE_RADIUS = newval;
         draw();

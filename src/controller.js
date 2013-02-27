@@ -112,6 +112,7 @@ Controller = function() {
                 this.update_drag(mouse);
             }
             this.find_closest();
+            if (MOUSEOVER_INFO) update_infobox(closest);
             if (!LIVE) draw();
         },
         keydown: function(e) {
