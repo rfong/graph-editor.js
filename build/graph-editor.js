@@ -20,6 +20,7 @@ var edge_list = [], nodes = [], removed_edges = [],
     EDGE_LABELS = true,
     NODE_NUMBERS = true,
     MODIFIABLE_NODES = true,
+    MOUSEOVER_INFO = true,
     SPRING = 0.999,
     SPEED = 2.0,
     FIXED_LENGTH = 100.0,
@@ -722,6 +723,7 @@ Controller = function() {
                 this.update_drag(mouse);
             }
             this.find_closest();
+            if (MOUSEOVER_INFO) update_infobox(closest);
             if (!LIVE) draw();
         },
         keydown: function(e) {
@@ -1122,6 +1124,11 @@ function render_menu(div) {
         draw();
         if ($('.infobox #title').html() == 'Vertex Info')
             update_infobox_label(div);
+        });
+
+    add_checkbox('Info on mouseover', MOUSEOVER_INFO, menu, function() {
+        MOUSEOVER_INFO = !MOUSEOVER_INFO;
+        draw();
         });
 
     $(menu).append('</table><table>');
