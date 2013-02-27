@@ -61,6 +61,10 @@ div h4{
     margin: 12px 0px 0px 0px;
 }
 
+div.infobox {
+  height: 90px;
+}
+
 #help_dialog {
     height: 500px !important;
     overflow: auto;
