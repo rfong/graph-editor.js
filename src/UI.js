@@ -79,6 +79,7 @@ function create_controls(div) {
 
     $(div).append("<div id='help_dialog'>\
         <ul>\
+            <li><h3>unselect object</h3>Press escape.</li>\
             <li><h3>create vertex</h3>Click on empty space not too close to existing vertices.\
             <li><h3>create/erase edge</h3>Select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them.\
             <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.\
