@@ -1059,15 +1059,15 @@ function render_menu(div) {
     <div id='none_selected'>No node is selected</div></div>");
     $(div + ' .infobox #info').hide();
     $(div + ' .infobox #label').keyup(function(e) {
-        if (!MODIFIABLE_NODES) { // in case of sneaks
-            e.preventDefault();
-            return;
-        }
         var index = $(div + ' .infobox #index').html(),
         title = $(div + ' .infobox #title').html(),
         val = $(div + ' .infobox #label').val();
         if (title === "Vertex Info"){
             nodes[index].label = val;
+            if (!MODIFIABLE_NODES) { // in case of sneaks
+                e.preventDefault();
+                return;
+            }
         } else if (title === "Edge Info"){
             if (!NUMERIC_EDGES || isNumber(val)) {
                 edge_list[index].label = val;
@@ -1115,10 +1115,8 @@ function render_menu(div) {
     add_checkbox('Modifiable vertices', MODIFIABLE_NODES, menu, function() {
         MODIFIABLE_NODES = !MODIFIABLE_NODES;
         draw();
-        if (MODIFIABLE_NODES)
-            $('.infobox input#label').removeAttr("readonly");
-        else
-            $('.infobox input#label').attr("readonly", "readonly");
+        if ($('.infobox #title').html() == 'Vertex Info')
+            update_infobox_label();
         });
 
     $(menu).append('</table><table>');
@@ -1170,6 +1168,14 @@ function render_menu(div) {
     $(menu).append('<textarea id="json" rows="5" cols="34"></textarea><br>');
 }
 
+function update_infobox_label() {
+    console.log("UPDATE")
+    if (MODIFIABLE_NODES)
+        $('.infobox #label-container').show();
+    else
+        $('.infobox #label-container').hide();
+}
+
 function update_infobox(obj) {
     if (!MENU) {
         return;
@@ -1177,6 +1183,7 @@ function update_infobox(obj) {
     var pos, index, node, edge;
     if (obj && obj instanceof Vertex) {
         node = obj, pos = node.get_pos(), index = nodes.indexOf(node);
+        update_infobox_label();
         $(div + ' .infobox #title').html('Vertex Info');
         $(div + ' .infobox #index').html(index);
         $(div + ' .infobox #pos').show();
@@ -1190,6 +1197,7 @@ function update_infobox(obj) {
         edge = obj;
         var enodes = edge.get_nodes();
         index = edge_list.indexOf(edge);
+        $('.infobox #label-container').show();
         $(div + ' .infobox #title').html('Edge Info');
         $(div + ' .infobox #index').html(index);
         $(div + ' .infobox #pos').hide();
