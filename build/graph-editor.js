@@ -1259,6 +1259,10 @@ function init() {
         import_from_JSON(options.JSONdata);
         draw();
     }
+    if(options.CSVdata){
+        import_from_CSV(options.CSVdata);
+        draw();
+    }
     if (options.controls !== false){
         create_controls(div);
     }
