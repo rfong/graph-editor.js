@@ -1,10 +1,11 @@
 //CSVdata has the format:
 //v0,v1,...,vn
-//va,vb,e0
-//vc,vd,e1
+//i0,j0,e0
+//11,j1,e1
 //...
 // where the first line is names of vertices
 // and all following lines describe edges
+//   v_i to v_j, with edge weight e
 function import_from_CSV(CSVdata) {
     var data, vertices, edges;
     data = CSVdata.split('\n')
@@ -13,9 +14,13 @@ function import_from_CSV(CSVdata) {
             return line.split(',');
         }
     );
+    vertices = data[0];
+    edges = data.slice(1).map(function(e) {
+        return [vertices[e[0]], vertices[e[1]], e[2]];
+    });
     import_from_object({
-        vertices: data[0] || [],
-        edges: data.slice(1) || []
+        vertices: vertices || [],
+        edges: edges || []
     });
 }
 
@@ -29,7 +34,7 @@ function export_CSV() {
     data = data.concat(
         edge_list.filter(function(e){ return e.label; })
         .map(function(e) {
-            return [e.node1.label, e.node2.label, e.label];
+            return [nodes.indexOf(e.node1), nodes.indexOf(e.node2), e.label];
         })
     );
     return data.map(function(d) { return d.join(','); }).join('\n');
@@ -54,11 +59,11 @@ function import_from_JSON(JSONdata) {
 }
 
 function import_from_object(data) {
-    var i, dict = {}, new_v, pos, vertex;
+    var i, vertices = {}, new_v, pos, vertex;
     erase_graph();
     for (i = 0; i < data.vertices.length; i += 1) {
         new_v = new Vertex({x:0,y:0}, data.vertices[i]);
-        dict[data.vertices[i]] = new_v;
+        vertices[data.vertices[i]] = new_v;
         nodes.push(new_v);
     }
 	if (data.pos) {
@@ -74,7 +79,7 @@ function import_from_object(data) {
         dy = maxy - miny;
         for (i in data.pos) {
             pos = data.pos[i];
-            vertex = dict[i];
+            vertex = vertices[i];
             newx = (data.pos[i][0] - minx) / dx;
             newx = newx * 8 * SIZE.x / 10 + SIZE.x / 10;
             newy = (data.pos[i][1] - miny) / dy;
@@ -85,7 +90,7 @@ function import_from_object(data) {
 	    default_layout();
 	}
     for (i = 0; i < data.edges.length; i += 1) {
-        edge_list.push(new Edge(dict[data.edges[i][0]], dict[data.edges[i][1]], 1, data.edges[i][2]));
+        edge_list.push(new Edge(vertices[data.edges[i][0]], vertices[data.edges[i][1]], 1, data.edges[i][2]));
     }
     graph_name = data.name;
     draw();
