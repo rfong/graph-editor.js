@@ -1063,7 +1063,7 @@ function render_menu(div) {
     $(menu).append("<div class='infobox'><h4 id='title'>Info</h4>\
     <div id='info'>Index: <span id='index'></span><br>\
     <span id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)<br></span>\
-    <span id='vert'>Vertices: <span id='v1'></span>-><span id='v2'></span><br></span>\
+    <span id='vert'>Vertices: <span id='v1'></span>, <span id='v2'></span><br></span>\
     <span id='label-container'>Label: <span id='label-plain'></span><input type='text' id='label'></span></div>\
     <div id='none_selected'>No node is selected</div></div>");
     $(div + ' .infobox #info').hide();
