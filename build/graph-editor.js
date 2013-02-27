@@ -769,12 +769,15 @@ Controller = function() {
 // and all following lines describe edges
 function import_from_CSV(CSVdata) {
     var data, vertices, edges;
-    data = CSVdata.split('\n').map(function(line) {
-        return line.split(',')
-    });
+    data = CSVdata.split('\n')
+        .filter(function(line) { return line.length>0; })
+        .map(function(line) {
+            return line.split(',');
+        }
+    );
     import_from_object({
-        vertices: data[0],
-        edges: data.slice(1)
+        vertices: data[0] || [],
+        edges: data.slice(1) || []
     });
 }
 
