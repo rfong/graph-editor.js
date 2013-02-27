@@ -82,7 +82,7 @@ function import_from_object(data) {
             vertex.set_pos({x: newx, y: newy});
         }
 	} else {
-	    circular_layout();
+	    default_layout();
 	}
     for (i = 0; i < data.edges.length; i += 1) {
         edge_list.push(new Edge(dict[data.edges[i][0]], dict[data.edges[i][1]], 1, data.edges[i][2]));

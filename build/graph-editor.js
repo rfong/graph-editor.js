@@ -497,6 +497,13 @@ function centerize(maximize){
     }
 }
 
+function default_layout() {
+    if (nodes.length <= 25)
+        circular_layout();
+    else
+        grid_layout();
+}
+
 function circular_layout() {
     var i;
     for (i = 0; i < nodes.length; i += 1) {
@@ -506,6 +513,19 @@ function circular_layout() {
             y : SIZE.y / 2 - (2 * SIZE.y / 5)
                 * Math.cos(2 * Math.PI * i / nodes.length)
             });
+    }
+    draw();
+}
+
+function grid_layout() {
+    var i, x, y;
+    x = Math.floor(Math.sqrt(nodes.length * SIZE.x / SIZE.y));
+    y=Math.ceil(nodes.length/x);
+    for (i = 0; i < nodes.length; i++) {
+        nodes[i].set_pos({
+            x: (SIZE.x / x) * (i%x + 0.5),
+            y: (SIZE.y / y) * (Math.floor(i/x) + 0.5)
+        });
     }
     draw();
 }
@@ -846,7 +866,7 @@ function import_from_object(data) {
             vertex.set_pos({x: newx, y: newy});
         }
 	} else {
-	    circular_layout();
+	    default_layout();
 	}
     for (i = 0; i < data.edges.length; i += 1) {
         edge_list.push(new Edge(dict[data.edges[i][0]], dict[data.edges[i][1]], 1, data.edges[i][2]));
@@ -1064,11 +1084,11 @@ function render_menu(div) {
             circular_layout();
         }
     });
-    /*add_button('Grid layout', menu, function() {
+    add_button('Grid layout', menu, function() {
         if (confirm("All vertices will be irreversably moved. This operation cannot be undone.")) {
             grid_layout();
         }
-    });*/
+    });
 
     $(menu).append('<table>');
 
@@ -1296,7 +1316,7 @@ return {
                 edge_list.push(new Edge(nodes[i],nodes[j]));
             }
         }
-	    circular_layout();
+	    default_layout();
     },
     //destructive
     grid_graph: function(m,n) {
@@ -1317,7 +1337,7 @@ return {
                 }
             }
         }
-	    circular_layout();
+	    default_layout();
     }
 };
 };

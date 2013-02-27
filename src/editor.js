@@ -108,7 +108,7 @@ return {
                 edge_list.push(new Edge(nodes[i],nodes[j]));
             }
         }
-	    circular_layout();
+	    default_layout();
     },
     //destructive
     grid_graph: function(m,n) {
@@ -129,6 +129,6 @@ return {
                 }
             }
         }
-	    circular_layout();
+	    default_layout();
     }
 };

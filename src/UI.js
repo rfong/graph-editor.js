@@ -139,11 +139,11 @@ function render_menu(div) {
             circular_layout();
         }
     });
-    /*add_button('Grid layout', menu, function() {
+    add_button('Grid layout', menu, function() {
         if (confirm("All vertices will be irreversably moved. This operation cannot be undone.")) {
             grid_layout();
         }
-    });*/
+    });
 
     $(menu).append('<table>');
 

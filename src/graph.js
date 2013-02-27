@@ -337,6 +337,13 @@ function centerize(maximize){
     }
 }
 
+function default_layout() {
+    if (nodes.length <= 25)
+        circular_layout();
+    else
+        grid_layout();
+}
+
 function circular_layout() {
     var i;
     for (i = 0; i < nodes.length; i += 1) {
@@ -346,6 +353,19 @@ function circular_layout() {
             y : SIZE.y / 2 - (2 * SIZE.y / 5)
                 * Math.cos(2 * Math.PI * i / nodes.length)
             });
+    }
+    draw();
+}
+
+function grid_layout() {
+    var i, x, y;
+    x = Math.floor(Math.sqrt(nodes.length * SIZE.x / SIZE.y));
+    y=Math.ceil(nodes.length/x);
+    for (i = 0; i < nodes.length; i++) {
+        nodes[i].set_pos({
+            x: (SIZE.x / x) * (i%x + 0.5),
+            y: (SIZE.y / y) * (Math.floor(i/x) + 0.5)
+        });
     }
     draw();
 }
