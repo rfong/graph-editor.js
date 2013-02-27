@@ -1054,7 +1054,7 @@ function render_menu(div) {
     <div id='info'>Index: <span id='index'></span><br>\
     <span id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)<br></span>\
     <span id='vert'>Vertices: <span id='v1'></span>-><span id='v2'></span><br></span>\
-    <span id='label-container'>Label: <input type='text' id='label'></span></div>\
+    <span id='label-container'>Label: <span id='label-plain'></span><input type='text' id='label'></span></div>\
     <div id='none_selected'>No node is selected</div></div>");
     $(div + ' .infobox #info').hide();
     $(div + ' .infobox #label').keyup(function(e) {
@@ -1116,7 +1116,7 @@ function render_menu(div) {
         MODIFIABLE_NODES = !MODIFIABLE_NODES;
         draw();
         if ($('.infobox #title').html() == 'Vertex Info')
-            update_infobox_label();
+            update_infobox_label(div);
         });
 
     $(menu).append('</table><table>');
@@ -1170,11 +1170,15 @@ function render_menu(div) {
     $(menu).append('<textarea id="json" rows="5" cols="34"></textarea><br>');
 }
 
-function update_infobox_label() {
-    if (MODIFIABLE_NODES)
-        $('.infobox #label-container').show();
-    else
-        $('.infobox #label-container').hide();
+function update_infobox_label(div) {
+    if (MODIFIABLE_NODES) {
+        $(div + ' .infobox #label').show();
+        $(div + ' .infobox #label-plain').hide();
+    }
+    else {
+        $(div + ' .infobox #label').hide();
+        $(div + ' .infobox #label-plain').show();
+    }
 }
 
 function update_infobox(obj) {
@@ -1184,7 +1188,7 @@ function update_infobox(obj) {
     var pos, index, node, edge;
     if (obj && obj instanceof Vertex) {
         node = obj, pos = node.get_pos(), index = nodes.indexOf(node);
-        update_infobox_label();
+        update_infobox_label(div);
         $(div + ' .infobox #title').html('Vertex Info');
         $(div + ' .infobox #index').html(index);
         $(div + ' .infobox #pos').show();
@@ -1192,13 +1196,15 @@ function update_infobox(obj) {
         $(div + ' .infobox #posy').html(pos.y.toFixed(1));
         $(div + ' .infobox #vert').hide();
         $(div + ' .infobox #label').val(node.label);
+        $(div + ' .infobox #label-plain').html(node.label);
         $(div + ' .infobox #none_selected').hide();
         $(div + ' .infobox #info').show();
     } else if (obj && obj instanceof Edge) {
         edge = obj;
         var enodes = edge.get_nodes();
         index = edge_list.indexOf(edge);
-        $('.infobox #label-container').show();
+        $(div + ' .infobox #label').show();
+        $(div + ' .infobox #label-plain').hide();
         $(div + ' .infobox #title').html('Edge Info');
         $(div + ' .infobox #index').html(index);
         $(div + ' .infobox #pos').hide();
@@ -1208,6 +1214,7 @@ function update_infobox(obj) {
         $(div + ' .infobox #v1').html(enodes.node1.label);
         $(div + ' .infobox #v2').html(enodes.node2.label);
         $(div + ' .infobox #label').val(edge.label||'');
+        $(div + ' .infobox #label-plain').html(edge.label||'');
         $(div + ' .infobox #none_selected').hide();
         $(div + ' .infobox #info').show();
     } else {
