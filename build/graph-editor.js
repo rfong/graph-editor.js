@@ -13,7 +13,8 @@ var edge_list = [], nodes = [], removed_edges = [],
     center = {x: SIZE.x/2, y: SIZE.y/2},
     DIRECTED = options.directed || false,
     MULTIGRAPH = options.multigraph || false,
-    NODE_RADIUS = options.node_radius || 10.0,
+    NODE_RADIUS = options.node_radius || 12.0,
+    FONT_SIZE = options.font_size || 12,
     LIVE = false,
     AUTO_MAXIMIZE = true,
     NUMERIC_EDGES = true,
@@ -93,7 +94,8 @@ function line(x1,y1,x2,y2){
 }
 
 function text(str, x, y){
-  ctx.fillText(str||'', x, y);
+    ctx.font = FONT_SIZE + 'px sans-serif';
+    ctx.fillText(str||'', x, y);
 }
 
 function bezier(x1,y1,cx1,cy1,cx2,cy2,x2,y2){
@@ -236,7 +238,8 @@ Vertex.prototype = {
             ctx.fillStyle = "#000000";
             node_number = nodes.indexOf(this).toString();
             ctx.textAlign = "center";
-            ctx.fillText(node_number, this.pos.x, this.pos.y + 4);
+            ctx.textBaseline = "middle";
+            ctx.fillText(node_number, this.pos.x, this.pos.y);
         }
     },
     vector_from: function(v) {
@@ -1133,6 +1136,11 @@ function render_menu(div) {
 
     $(menu).append('</table><table>');
 
+    /*add_slider('Font Size', FONT_SIZE, menu, 10, 19, function(newval) {
+        FONT_SIZE = newval;
+        draw();
+        });
+    */
     add_slider('Vertex Size', NODE_RADIUS, menu, 0, 30, function(newval) {
         NODE_RADIUS = newval;
         draw();

@@ -181,6 +181,11 @@ function render_menu(div) {
 
     $(menu).append('</table><table>');
 
+    /*add_slider('Font Size', FONT_SIZE, menu, 10, 19, function(newval) {
+        FONT_SIZE = newval;
+        draw();
+        });
+    */
     add_slider('Vertex Size', NODE_RADIUS, menu, 0, 30, function(newval) {
         NODE_RADIUS = newval;
         draw();

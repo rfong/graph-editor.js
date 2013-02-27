@@ -1,19 +1,17 @@
 div.graph_editor_container{
     margin: 10px;
-    padding: 20px;
-    border: 1px solid #aaa;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
+    padding: 2px;
+    //border: 1px solid #aaa;
+    //-moz-border-radius: 10px;
+    //-webkit-border-radius: 10px;
     overflow: auto;
-    font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+    //font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
 }
 
 div#graph_editor_button_container{
     position: relative;
     overflow: auto;
     width: 100%;
-    border: 1px solid #BEDCE7;
-    background: #EAF2F5;
     margin-bottom: 10px;
 }
 
@@ -31,7 +29,7 @@ div.graph_editor_button:hover{
 }
 
 div.graph_editor_button_on{
-    background: #a33;
+    text-decoration: underline;
 }
 
 div.graph_editor_undo_disabled{
@@ -55,10 +53,11 @@ div#graph_editor_menu{
     float: left;
     margin-left: 20px;
     width: 270px;
+    font-size: 15px;
 }
 div h4{
     padding: 0px;
-    margin: 12px 0px 0px 0px;
+    margin: 20px 0px 3px 0px;
 }
 
 div.infobox {
@@ -70,6 +69,11 @@ div.infobox {
     overflow: auto;
 }
 
+input[type="button"] {
+    font-size: inherit;
+    margin-right:  3px;
+    margin-bottom: 3px;
+}
 input[type="checkbox"] {
     margin-right: 0.5em;
 }
