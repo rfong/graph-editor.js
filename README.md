@@ -12,6 +12,8 @@ New features in this fork
 -----
 + support for edge labels
 + import/export integrated into menu
++ CSV import/export
++ grid layout
 
 Todo
 -----
