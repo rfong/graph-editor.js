@@ -81,6 +81,8 @@ init();
 
 //a global object graph_editor is created containing all global functions
 return {
+    import_from_CSV: import_from_CSV,
+    export_CSV: export_CSV,
     import_from_JSON: import_from_JSON,
     export_tkz: export_tkz,
     export_sage: export_sage,
