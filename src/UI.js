@@ -135,10 +135,15 @@ function render_menu(div) {
     // menu
     $(menu).append("<h4>Tweaks</h4>");
     add_button('Circular layout', menu, function() {
-        if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {
+        if (confirm("All vertices will be irreversably moved. This operation cannot be undone.")) {
             circular_layout();
         }
     });
+    /*add_button('Grid layout', menu, function() {
+        if (confirm("All vertices will be irreversably moved. This operation cannot be undone.")) {
+            grid_layout();
+        }
+    });*/
 
     $(menu).append('<table>');
 

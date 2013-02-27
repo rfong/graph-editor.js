@@ -341,8 +341,10 @@ function circular_layout() {
     var i;
     for (i = 0; i < nodes.length; i += 1) {
         nodes[i].set_pos({
-            x : SIZE.x / 2 + (2 * SIZE.x / 5) * Math.sin(2 * Math.PI * i / nodes.length),
-            y : SIZE.y / 2 - (2 * SIZE.y / 5) * Math.cos(2 * Math.PI * i / nodes.length)
+            x : SIZE.x / 2 + (2 * SIZE.x / 5)
+                * Math.sin(2 * Math.PI * i / nodes.length),
+            y : SIZE.y / 2 - (2 * SIZE.y / 5)
+                * Math.cos(2 * Math.PI * i / nodes.length)
             });
     }
     draw();

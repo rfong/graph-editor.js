@@ -501,8 +501,10 @@ function circular_layout() {
     var i;
     for (i = 0; i < nodes.length; i += 1) {
         nodes[i].set_pos({
-            x : SIZE.x / 2 + (2 * SIZE.x / 5) * Math.sin(2 * Math.PI * i / nodes.length),
-            y : SIZE.y / 2 - (2 * SIZE.y / 5) * Math.cos(2 * Math.PI * i / nodes.length)
+            x : SIZE.x / 2 + (2 * SIZE.x / 5)
+                * Math.sin(2 * Math.PI * i / nodes.length),
+            y : SIZE.y / 2 - (2 * SIZE.y / 5)
+                * Math.cos(2 * Math.PI * i / nodes.length)
             });
     }
     draw();
@@ -1058,10 +1060,15 @@ function render_menu(div) {
     // menu
     $(menu).append("<h4>Tweaks</h4>");
     add_button('Circular layout', menu, function() {
-        if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {
+        if (confirm("All vertices will be irreversably moved. This operation cannot be undone.")) {
             circular_layout();
         }
     });
+    /*add_button('Grid layout', menu, function() {
+        if (confirm("All vertices will be irreversably moved. This operation cannot be undone.")) {
+            grid_layout();
+        }
+    });*/
 
     $(menu).append('<table>');
 
