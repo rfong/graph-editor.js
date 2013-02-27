@@ -31,7 +31,8 @@ var cube = '{"edges": [["000", "001", null], ["000", "010", null], ["000", "100"
 $(function() {
     hljs.initHighlightingOnLoad();
     my_graph_editor1 = new GraphEditor('#graph_ed1', {
-        JSONdata : K4_graph,
+        //JSONdata : K4_graph,
+        CSVdata : '0,1,2,3,4,5,6,7,8,9,10,11,12',
         width: 800,
         height: 600
     });
