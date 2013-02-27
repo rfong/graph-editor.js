@@ -16,10 +16,10 @@ var edge_list = [], nodes = [], removed_edges = [],
     NODE_RADIUS = options.node_radius || 10.0,
     LIVE = false,
     AUTO_MAXIMIZE = true,
-    NUMERIC_EDGES = false,
+    NUMERIC_EDGES = true,
     EDGE_LABELS = true,
     NODE_NUMBERS = true,
-    MODIFIABLE_NODES = true,
+    MODIFIABLE_NODES = false,
     SPRING = 0.999,
     SPEED = 2.0,
     FIXED_LENGTH = 100.0,
@@ -1004,9 +1004,9 @@ function create_controls(div) {
     })
     .each(function() { if (MENU) $(this).click(); });
 
-    $('<div id="undo_button" class="graph_editor_button">undo</div>').appendTo(buttondiv)
+    /*$('<div id="undo_button" class="graph_editor_button">undo</div>').appendTo(buttondiv)
     .click(undo_remove).toggleClass('graph_editor_undo_disabled');
-
+    */
     $('<div id="reset_button" class="graph_editor_button">reset</div>').appendTo(buttondiv)
     .click(function() {
         if (confirm("The graph will be irreversibly erased. This operation cannot be undone.")) {
@@ -1024,15 +1024,14 @@ function create_controls(div) {
 
     $(div).append("<div id='help_dialog'>\
         <ul>\
-            <li><h3>create vertex</h3>Click on empty space not too close to existing vertices.\
+            <li>Vertices cannot be created or deleted using the graphical editor for this application.</li>\
             <li><h3>create/erase edge</h3>Select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them.\
             <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.\
-            <li><h3>remove a vertex or edge</h3>Press delete when the object is selected.\
+            <li><h3>remove an edge</h3>Press delete when the object is selected.\
             <li><h3>keep the selected vertex after edge toggle</h3>Hold 'SHIFT' to preserve the selected vertex after creating/erasing an edge.\
             <li><h3>split an edge</h3> press 's' when edge is selected\
             <li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)\
             <li><h3>add/remove loop</h3> press 'o'\
-            <li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.\
             <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.\
         </ul>\
         </div>");
@@ -1080,18 +1079,19 @@ function render_menu(div) {
     // menu
     $(menu).append("<h4>Tweaks</h4>");
     add_button('Circular layout', menu, function() {
-        if (confirm("All vertices will be irreversably moved. This operation cannot be undone.")) {
+        if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {
             circular_layout();
         }
     });
+
     add_button('Grid layout', menu, function() {
-        if (confirm("All vertices will be irreversably moved. This operation cannot be undone.")) {
+        if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {
             grid_layout();
         }
     });
 
     $(menu).append('<table>');
-
+/*
     add_checkbox('Edge labels', EDGE_LABELS, menu, function() {
         EDGE_LABELS = !EDGE_LABELS;
         draw();
@@ -1121,7 +1121,7 @@ function render_menu(div) {
         });
 
     $(menu).append('</table><table>');
-
+*/
     add_slider('Vertex Size', NODE_RADIUS, menu, 0, 30, function(newval) {
         NODE_RADIUS = newval;
         draw();
@@ -1135,13 +1135,14 @@ function render_menu(div) {
         SPEED = newval / 50.0;
         SPEED *= 2 * SPEED;
     });
-    add_slider('Edge Length', FIXED_LENGTH, menu, 0, 200, function (newval){
+    add_slider('Edge Length', FIXED_LENGTH, menu, 20, 500, function (newval){
         FIXED_LENGTH = newval;
     });
 
     // import / export
     $(menu).append("<h4>Import / Export</h4>");
     $(menu).append('<div id="io_buttons">');
+    /*
     add_button('Import JSON', menu+' #io_buttons', function() {
         import_from_JSON($(div+' #json').val());
     });
@@ -1149,6 +1150,7 @@ function render_menu(div) {
         $(div+' #json').val(export_sage());
     });
     $(menu+' #io_buttons').append('<br>');
+    */
     add_button('Import CSV', menu+' #io_buttons', function() {
         import_from_CSV($(div+' #json').val());
     });
