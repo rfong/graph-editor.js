@@ -74,7 +74,8 @@ Vertex.prototype = {
         if (NODE_NUMBERS) {
             ctx.fillStyle = "#000000";
             node_number = nodes.indexOf(this).toString();
-            ctx.fillText(node_number, this.pos.x - 4 * node_number.length, this.pos.y + 3);
+            ctx.textAlign = "center";
+            ctx.fillText(node_number, this.pos.x, this.pos.y + 4);
         }
     },
     vector_from: function(v) {
