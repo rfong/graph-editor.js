@@ -6,12 +6,16 @@ element. Originally written to be part of the Sage computer algebra system, now
 it is also a stand alone tool. The library does not pollute your JavaScript
 globals, it adds only the "GraphEditor" object.
 
-Forked off of [Radoslav Kirov's graph-editor](https://github.com/rkirov/graph-editor.js).
+Forked from [Radoslav Kirov's graph-editor](https://github.com/rkirov/graph-editor.js).
+
+Demo [here](http://rfong.github.com/graph-editor.js).
 
 New features in this fork
 -----
 + support for edge labels
 + import/export integrated into menu
++ CSV import/export
++ grid layout
 
 Todo
 -----

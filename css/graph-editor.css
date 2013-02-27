@@ -62,7 +62,7 @@ div h4{
 }
 
 div.infobox {
-  height: 90px;
+  min-height: 115px;
 }
 
 #help_dialog {
