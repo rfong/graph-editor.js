@@ -1038,18 +1038,18 @@ function create_controls(div) {
     render_menu(div);
 
     $(div).append("<div id='help_dialog'>\
-        <ul>\
-            <li>Vertices cannot be created or deleted using the graphical editor for this application.</li>\
-            <li><h3>unselect object</h3>Press escape.</li>\
-            <li><h3>create/erase edge</h3>Select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them.\
-            <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.\
-            <li><h3>remove an edge</h3>Press delete when the object is selected.\
-            <li><h3>keep the selected vertex after edge toggle</h3>Hold 'SHIFT' to preserve the selected vertex after creating/erasing an edge.\
-            <li><h3>split an edge</h3> press 's' when edge is selected\
-            <li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)\
-            <li><h3>add/remove loop</h3> press 'o'\
-            <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.\
-        </ul>\
+        <p>Vertices cannot be created or deleted using the graphical editor for this application.\
+        <table>\
+            <tr><td>unselect object</td><td>Press escape.</td></tr>\
+            <tr><td>delete object</td><td>Press delete when the object is selected.</td></tr>\
+            <tr><td>create/erase edge</td><td>Select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them.</td></tr>\
+            <tr><td>increase/decrease multiplicity</td><td>Use +/-. When multiplicity is 0 the edge disappears.</td></tr>\
+            <tr><td>keep the selected vertex after edge toggle</td><td>Hold 'SHIFT' to preserve the selected vertex after creating/erasing an edge.</td></tr>\
+            <tr><td>split an edge</td><td>press 's' when edge is selected.</td></tr>\
+            <tr><td>freeze a vertex</td><td>pressing 'r' freezes the selected vertex (it will not move in live mode)</td></tr>\
+            <tr><td>add/remove loop</td><td>press 'o'</td></tr>\
+            <tr><td>turn on realtime spring-charge model</td><td>Press 'l' or click on the live checkbox.</td></tr>\
+        </table>\
         </div>");
     $('#help_dialog').dialog({
         autoOpen : false,

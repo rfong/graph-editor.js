@@ -64,11 +64,6 @@ div.infobox {
   min-height: 115px;
 }
 
-#help_dialog {
-    height: 500px !important;
-    overflow: auto;
-}
-
 input[type="button"] {
     font-size: inherit;
     margin-right:  3px;
@@ -89,4 +84,51 @@ table {
 
 .hidden {
     display: none;
+}
+
+/*** jquery ui override ***/
+
+#help_dialog {
+    max-height: 350px !important;
+    overflow: auto;
+}
+#help_dialog table {
+    border-spacing: 0 0;
+    border-collapse: separate;
+}
+#help_dialog table td {
+    vertical-align: text-top;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+#help_dialog table tr:last-child td {
+    padding-bottom: 0;
+}
+#help_dialog table td:first-child {
+    padding-left: 0;
+    font-weight: bold;
+}
+.ui-dialog {
+    background: #fff;
+    border-radius: 5px;
+}
+.ui-dialog-titlebar {
+    padding: 20px 20px;
+}
+.ui-dialog-title {
+    font-size: 20px;
+}
+.ui-dialog-titlebar-close {
+    float: right;
+}
+.ui-widget-header {
+    border: none !important;
+    background: #666 !important;
+}
+.ui-widget-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000 !important;
+    opacity: 0.3 !important;
 }
