@@ -129,6 +129,10 @@ Controller = function() {
                 }
                 e.preventDefault(); // prevent navigation
             }
+            if (e.keyCode ===27) { //escape deselects object
+                this.unselect_object();
+                draw();
+            }
         },
         keyup: function(e) {
             SHIFT = false;

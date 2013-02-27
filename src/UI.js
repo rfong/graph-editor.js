@@ -80,6 +80,7 @@ function create_controls(div) {
     $(div).append("<div id='help_dialog'>\
         <ul>\
             <li>Vertices cannot be created or deleted using the graphical editor for this application.</li>\
+            <li><h3>unselect object</h3>Press escape.</li>\
             <li><h3>create/erase edge</h3>Select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them.\
             <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.\
             <li><h3>remove an edge</h3>Press delete when the object is selected.\
