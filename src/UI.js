@@ -179,6 +179,11 @@ function render_menu(div) {
         draw();
         });
 
+    add_checkbox('Default edge values', AUTO_EDGES, menu, function() {
+        AUTO_EDGES = !AUTO_EDGES;
+        draw();
+        });
+
     $(menu).append('</table><table>');
 
     /*add_slider('Font Size', FONT_SIZE, menu, 10, 19, function(newval) {

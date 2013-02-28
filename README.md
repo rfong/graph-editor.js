@@ -8,8 +8,6 @@ globals, it adds only the "GraphEditor" object.
 
 Forked from [Radoslav Kirov's graph-editor](https://github.com/rkirov/graph-editor.js).
 
-Demo [here](http://rfong.github.com/graph-editor.js).
-
 New features in this fork
 -----
 + support for edge labels
@@ -26,6 +24,7 @@ Todo
 
 Usage
 -----
-See index.html for description and demos.
+Demo [here](http://rfong.github.com/graph-editor.js).
 
 Have fun!
+

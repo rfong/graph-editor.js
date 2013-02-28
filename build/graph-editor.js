@@ -21,6 +21,8 @@ var edge_list = [], nodes = [], removed_edges = [],
     EDGE_LABELS = true,
     NODE_NUMBERS = true,
     MODIFIABLE_NODES = false,
+    AUTO_EDGES = true,
+    DEFAULT_EDGE = 1,
     MOUSEOVER_INFO = true,
     SPRING = 0.999,
     SPEED = 2.0,
@@ -276,6 +278,10 @@ Vertex.prototype = {
 };
 
 Edge = function(node1, node2, multi, label) {
+    if (NUMERIC_EDGES && !isNumber(label))
+        label = null;
+    if (!label && AUTO_EDGES)
+        label = DEFAULT_EDGE;
     this.node1 = node1;
     this.node2 = node2;
     this.multi = multi || 1;
@@ -1136,6 +1142,11 @@ function render_menu(div) {
 */
     add_checkbox('Info on mouseover', MOUSEOVER_INFO, menu, function() {
         MOUSEOVER_INFO = !MOUSEOVER_INFO;
+        draw();
+        });
+
+    add_checkbox('Default edge values', AUTO_EDGES, menu, function() {
+        AUTO_EDGES = !AUTO_EDGES;
         draw();
         });
 
