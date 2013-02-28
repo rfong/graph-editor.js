@@ -113,6 +113,8 @@ Vertex.prototype = {
 };
 
 Edge = function(node1, node2, multi, label) {
+    if (!label && AUTO_EDGES)
+        label = DEFAULT_EDGE;
     this.node1 = node1;
     this.node2 = node2;
     this.multi = multi || 1;
