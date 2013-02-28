@@ -301,3 +301,8 @@ function update_infobox(obj) {
         $(div + ' .infobox #info').hide();
     }
 }
+
+function focusLabel(el) {
+    $(el).parent('.graph_editor_container')
+        .find('.infobox #label').focus();
+}
