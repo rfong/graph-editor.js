@@ -153,7 +153,8 @@ Edge.prototype = {
     },
     draw_simple: function(){
         var pos1 = this.node1.get_pos(), pos2 = this.node2.get_pos();
-        line(pos1.x,pos1.y,pos2.x,pos2.y);
+        line(pos1.x,pos1.y,pos2.x,pos2.y,
+            this.label=='-1' ? 2 : 1 );
         if (DIRECTED){
             this.draw_arrow_tips(pos1,pos2);
         }

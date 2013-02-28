@@ -86,8 +86,8 @@ function circle(x,y,r,nofillFlag){
     ctx.stroke();
 }
 
-function line(x1,y1,x2,y2){
-    ctx.lineWidth = 1;
+function line(x1,y1,x2,y2,stroke){
+    ctx.lineWidth = stroke || 1;
     ctx.beginPath();
     ctx.moveTo(x1,y1);
     ctx.lineTo(x2,y2);
@@ -318,7 +318,8 @@ Edge.prototype = {
     },
     draw_simple: function(){
         var pos1 = this.node1.get_pos(), pos2 = this.node2.get_pos();
-        line(pos1.x,pos1.y,pos2.x,pos2.y);
+        line(pos1.x,pos1.y,pos2.x,pos2.y,
+            this.label=='-1' ? 2 : 1 );
         if (DIRECTED){
             this.draw_arrow_tips(pos1,pos2);
         }
@@ -1094,7 +1095,7 @@ function render_menu(div) {
                 return;
             }
         } else if (title === "Edge Info"){
-            if (!NUMERIC_EDGES || isNumber(val)) {
+            if (!NUMERIC_EDGES || isNumber(val) || val=='-') {
                 edge_list[index].label = val;
             }
             else {

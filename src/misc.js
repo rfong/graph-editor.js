@@ -48,8 +48,8 @@ function circle(x,y,r,nofillFlag){
     ctx.stroke();
 }
 
-function line(x1,y1,x2,y2){
-    ctx.lineWidth = 1;
+function line(x1,y1,x2,y2,stroke){
+    ctx.lineWidth = stroke || 1;
     ctx.beginPath();
     ctx.moveTo(x1,y1);
     ctx.lineTo(x2,y2);
