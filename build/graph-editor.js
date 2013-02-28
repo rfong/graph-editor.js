@@ -56,8 +56,8 @@ function first(array,f){
     }
 }
 
-function isNumber(str) {
-    return /^[0-9\.]*$/.test(str);
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 function nonundef(x){
@@ -1092,7 +1092,7 @@ function render_menu(div) {
                 return;
             }
         } else if (title === "Edge Info"){
-            if (!NUMERIC_EDGES || isNumber(val)) {
+            if (!NUMERIC_EDGES || isNumber(val) || val=='-') {
                 edge_list[index].label = val;
             }
             else {

@@ -18,8 +18,8 @@ function first(array,f){
     }
 }
 
-function isNumber(str) {
-    return /^[0-9\.]*$/.test(str);
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 function nonundef(x){
