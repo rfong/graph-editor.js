@@ -354,6 +354,8 @@ Edge.prototype = {
         }
         if (NUMERIC_EDGES && !isNumber(this.label))
             this.label = null;
+        if (!this.label && AUTO_EDGES)
+            this.label = DEFAULT_EDGE;
         if (EDGE_LABELS)
             this.draw_label();
         if (this.node1 === this.node2) {
