@@ -90,8 +90,7 @@ Controller = function() {
                     this.unselect_object();
                 }
                 this.select_object( edge_list[edge_list.length-1] );
-                $(e.target).parent('.graph_editor_container')
-                    .find('.infobox #label').focus();
+                focusLabel(e.target);
             } else if (closest) {
                 this.select_object(closest);
             } else if (MODIFIABLE_NODES) {
