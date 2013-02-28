@@ -124,7 +124,7 @@ function render_menu(div) {
                 return;
             }
         } else if (title === "Edge Info"){
-            if (!NUMERIC_EDGES || isNumber(val) || val=='-') {
+            if (!NUMERIC_EDGES || isNumber(val) || val=='-' || val=='') {
                 edge_list[index].label = val;
             }
             else {
