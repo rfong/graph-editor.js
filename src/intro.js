@@ -17,6 +17,7 @@ var edge_list = [], nodes = [], removed_edges = [],
     FONT_SIZE = options.font_size || 12,
     LIVE = false,
     AUTO_MAXIMIZE = true,
+
     NUMERIC_EDGES = true,
     EDGE_LABELS = true,
     NODE_NUMBERS = true,
@@ -24,6 +25,8 @@ var edge_list = [], nodes = [], removed_edges = [],
     AUTO_EDGES = true,
     DEFAULT_EDGE = 1,
     MOUSEOVER_INFO = true,
+    EDGE_EMPH = true,//emph -1
+
     SPRING = 0.999,
     SPEED = 2.0,
     FIXED_LENGTH = 100.0,
