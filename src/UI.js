@@ -186,7 +186,12 @@ function render_menu(div) {
         draw();
         });
     $(menu+' td:last input[type=text]').keyup(function() {
-        DEFAULT_EDGE = $(this).val();
+        if (NUMERIC_EDGES && !isNumber($(this).val())) {
+            alert('Not a number');
+            $(this).val('');
+        }
+        else
+            DEFAULT_EDGE = $(this).val();
     });
 
     $(menu).append('</table><table>');
