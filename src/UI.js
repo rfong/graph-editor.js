@@ -9,7 +9,7 @@ function add_checkbox(name, variable, container_id, onclickf) {
     s += '<td>'+name+'</td>';
     s += '</tr>';
     $(container_id).append(s);
-    $(container_id+' input:last').click(onclickf);
+    $(container_id+' input[type=checkbox]:last').click(onclickf);
 }
 
 function add_button(name, container_id, onclickf) {
@@ -179,10 +179,20 @@ function render_menu(div) {
         draw();
         });
 
-    add_checkbox('Default edge values', AUTO_EDGES, menu, function() {
+    add_checkbox('Default edge values '
+                +'<input type="text" value="'+DEFAULT_EDGE+'" size="5" />',
+                AUTO_EDGES, menu, function() {
         AUTO_EDGES = !AUTO_EDGES;
         draw();
         });
+    $(menu+' td:last input[type=text]').keyup(function() {
+        if (NUMERIC_EDGES && !isNumber($(this).val())) {
+            alert('Not a number');
+            $(this).val('');
+        }
+        else
+            DEFAULT_EDGE = $(this).val();
+    });
 
     $(menu).append('</table><table>');
 
