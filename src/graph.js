@@ -113,6 +113,8 @@ Vertex.prototype = {
 };
 
 Edge = function(node1, node2, multi, label) {
+    if (NUMERIC_EDGES && !isNumber(label))
+        label = null;
     if (!label && AUTO_EDGES)
         label = DEFAULT_EDGE;
     this.node1 = node1;
@@ -187,6 +189,8 @@ Edge.prototype = {
         }
         if (NUMERIC_EDGES && !isNumber(this.label))
             this.label = null;
+        if (!this.label && AUTO_EDGES)
+            this.label = DEFAULT_EDGE;
         if (EDGE_LABELS)
             this.draw_label();
         if (this.node1 === this.node2) {
